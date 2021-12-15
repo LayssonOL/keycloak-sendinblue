@@ -16,6 +16,7 @@ import sendinblue.auth.ApiKeyAuth;
 import sibApi.TransactionalEmailsApi;
 import sibModel.SendSmtpEmail;
 import sibModel.SendSmtpEmailTo;
+import sibModel.SendSmtpEmailSender;
 
 @NoArgsConstructor
 public class SendinblueSender
@@ -40,19 +41,31 @@ public class SendinblueSender
      *             'Unauthorized' when API key is invalid or
      *             'Not Found' when template couldn't be found.
      */
-    public void postToSendinblue(UserModel user, long templateId, Map<String, String> params)
+    public void postToSendinblue(UserModel user, Long templateId, Map<String, String> params)
         throws EmailException
     {
+        System.out.println("User.getFirstName ->" + user.getFirstName());
+        System.out.println("User.getLastName ->" + user.getLastName());
+        System.out.println("User.getEmail ->" + user.getEmail());
+        System.out.println("TemplateID ->" + templateId);
+        System.out.println("Api Client ->" + apiClient);
         TransactionalEmailsApi apiInstance = new TransactionalEmailsApi(apiClient);
         SendSmtpEmailTo recipient = new SendSmtpEmailTo()
             .name(user.getFirstName() + " " + user.getLastName())
             .email(user.getEmail());
+        SendSmtpEmailSender sender = new SendSmtpEmailSender();
+                    sender.setEmail("admtff@thefuturefactory.pt");
+                    sender.setName("Admin TFF");
         SendSmtpEmail sendSmtpEmail = new SendSmtpEmail().templateId(templateId).params(params)
-            .to(Arrays.asList(recipient));
+            .to(Arrays.asList(recipient)).sender(sender);
+        System.out.println("Recipient =>" + recipient);
+        System.out.println("SendSMTPEmail =>" + sendSmtpEmail);
 
         try {
             apiInstance.getSmtpTemplate(templateId);
+            System.out.println("Got template from SendinBlue");
             apiInstance.sendTransacEmail(sendSmtpEmail);
+            System.out.println("Email sent");
         } catch (ApiException e) {
             LOGGER.errorf("[%s] Unable to send transactional mail for user '%s'", LogId.KCSIB0002, user.getEmail());
             throw new EmailException(e.getMessage(), e);

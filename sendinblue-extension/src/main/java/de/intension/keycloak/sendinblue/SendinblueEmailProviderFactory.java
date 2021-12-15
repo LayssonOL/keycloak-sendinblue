@@ -13,8 +13,9 @@ public class SendinblueEmailProviderFactory
 
     private static final Logger     LOGGER                  = Logger.getLogger(SendinblueEmailProviderFactory.class);
 
-    private static final String     PROVIDER_ID             = "sendinblue-email-provider";
-
+    // private static final String     PROVIDER_ID             = "sendinblue-email-provider";
+    private static final String     PROVIDER_ID             = "default";
+    
     private SendinblueEmailProvider sendinblueEmailProvider = new SendinblueEmailProvider();
 
     @Override
@@ -26,7 +27,10 @@ public class SendinblueEmailProviderFactory
     @Override
     public void init(Scope config)
     {
-        String apiKey = config.get(ConfigParameter.API_KEY.asString());
+        // String apiKey = config.get(ConfigParameter.API_KEY.asString());
+        System.out.println("Config => " + config.toString());
+        String apiKey = "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";
+        System.out.println("API KEY => " + apiKey);
 
         if (apiKey == null) {
             LOGGER.errorf("[%s] Unable to set API key", LogId.KCSIB0003);
