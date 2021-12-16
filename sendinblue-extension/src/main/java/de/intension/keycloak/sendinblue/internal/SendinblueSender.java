@@ -49,6 +49,7 @@ public class SendinblueSender
         System.out.println("User.getEmail ->" + user.getEmail());
         System.out.println("TemplateID ->" + templateId);
         System.out.println("Api Client ->" + apiClient);
+        params.put("name", user.getFirstName() + " " + user.getLastName());
         TransactionalEmailsApi apiInstance = new TransactionalEmailsApi(apiClient);
         SendSmtpEmailTo recipient = new SendSmtpEmailTo()
             .name(user.getFirstName() + " " + user.getLastName())

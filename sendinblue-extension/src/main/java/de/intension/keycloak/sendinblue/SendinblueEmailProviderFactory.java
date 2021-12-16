@@ -28,9 +28,9 @@ public class SendinblueEmailProviderFactory
     public void init(Scope config)
     {
         // String apiKey = config.get(ConfigParameter.API_KEY.asString());
-        System.out.println("Config => " + config.toString());
+        System.out.println("\n ** Config => " + config.toString());
         String apiKey = "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";
-        System.out.println("API KEY => " + apiKey);
+        System.out.println("\n ** API KEY => " + apiKey);
 
         if (apiKey == null) {
             LOGGER.errorf("[%s] Unable to set API key", LogId.KCSIB0003);
