@@ -44,11 +44,11 @@ public class SendinblueSender
     public void postToSendinblue(UserModel user, Long templateId, Map<String, String> params)
         throws EmailException
     {
-        System.out.println("User.getFirstName ->" + user.getFirstName());
-        System.out.println("User.getLastName ->" + user.getLastName());
-        System.out.println("User.getEmail ->" + user.getEmail());
-        System.out.println("TemplateID ->" + templateId);
-        System.out.println("Api Client ->" + apiClient);
+        // System.out.println("User.getFirstName ->" + user.getFirstName());
+        // System.out.println("User.getLastName ->" + user.getLastName());
+        // System.out.println("User.getEmail ->" + user.getEmail());
+        // System.out.println("TemplateID ->" + templateId);
+        // System.out.println("Api Client ->" + apiClient);
         params.put("name", user.getFirstName() + " " + user.getLastName());
         TransactionalEmailsApi apiInstance = new TransactionalEmailsApi(apiClient);
         SendSmtpEmailTo recipient = new SendSmtpEmailTo()
@@ -59,14 +59,14 @@ public class SendinblueSender
                     sender.setName("Admin TFF");
         SendSmtpEmail sendSmtpEmail = new SendSmtpEmail().templateId(templateId).params(params)
             .to(Arrays.asList(recipient)).sender(sender);
-        System.out.println("Recipient =>" + recipient);
-        System.out.println("SendSMTPEmail =>" + sendSmtpEmail);
+        // System.out.println("Recipient =>" + recipient);
+        // System.out.println("SendSMTPEmail =>" + sendSmtpEmail);
 
         try {
             apiInstance.getSmtpTemplate(templateId);
-            System.out.println("Got template from SendinBlue");
+            // System.out.println("Got template from SendinBlue");
             apiInstance.sendTransacEmail(sendSmtpEmail);
-            System.out.println("Email sent");
+            LOGGER.infof("Email sent");
         } catch (ApiException e) {
             LOGGER.errorf("[%s] Unable to send transactional mail for user '%s'", LogId.KCSIB0002, user.getEmail());
             throw new EmailException(e.getMessage(), e);

@@ -36,9 +36,9 @@ public class SendinblueEmailProvider
     {
         Map<String, String> new_params = new HashMap<>();
         String []textBodyParamPairs = textBody.split("\\|");
-        System.out.println("Text Body Param Pairs => " + Arrays.toString(textBodyParamPairs));
+        // System.out.println("Text Body Param Pairs => " + Arrays.toString(textBodyParamPairs));
         for (String parampair : textBodyParamPairs) {
-          System.out.println("Param Pair => " + parampair);
+          // System.out.println("Param Pair => " + parampair);
           String []kv = parampair.split("="); 
           // config.put(kv[0], kv[1]);
           new_params.put(kv[0], kv[1]);
@@ -50,12 +50,12 @@ public class SendinblueEmailProvider
             throw new EmailException("Config is missing template ID.");
         }
         Long templateId = Long.parseLong(templateIdConfigValue);
-        System.out.println("Config => " + config);
-        System.out.println("User => " + user);
-        System.out.println("Subject => " + subject);
-        System.out.println("TextBody => " + textBody);
-        System.out.println("HtmlBody => " + htmlBody);
-        System.out.println("TemplateId => " + templateId.toString());
+        // System.out.println("Config => " + config);
+        // System.out.println("User => " + user);
+        // System.out.println("Subject => " + subject);
+        // System.out.println("TextBody => " + textBody);
+        // System.out.println("HtmlBody => " + htmlBody);
+        // System.out.println("TemplateId => " + templateId.toString());
         // Iteration to get each parameter from template
 
         sendinblueSender.postToSendinblue(user, templateId, new_params);
