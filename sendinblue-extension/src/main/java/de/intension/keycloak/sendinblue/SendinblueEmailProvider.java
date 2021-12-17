@@ -39,9 +39,10 @@ public class SendinblueEmailProvider
         // System.out.println("Text Body Param Pairs => " + Arrays.toString(textBodyParamPairs));
         for (String parampair : textBodyParamPairs) {
           // System.out.println("Param Pair => " + parampair);
-          String []kv = parampair.split("="); 
+          // String []kv = parampair.split("="); 
+          int indexOfEq = parampair.indexOf("=");
           // config.put(kv[0], kv[1]);
-          new_params.put(kv[0], kv[1]);
+          new_params.put(parampair.substring(0,indexOfEq), parampair.substring((indexOfEq+1)));
         }
         // String templateIdConfigValue = config.get("templateId");
         String templateIdConfigValue = new_params.get("templateId");
